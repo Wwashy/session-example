@@ -34,8 +34,8 @@ var sessionStore=new MySQLStore({
 },connection)
 
 app.use(session({
-    key: 'sid',
-    secret: 'washie',
+    key: process.env.SESSION_KEY,
+    secret: process.env.SESSION_BONUS,
     store:sessionStore,
     resave: false,
     saveUninitialized: false,
@@ -92,7 +92,7 @@ app.post(`/login`, (req, res) => {
         <a href="/login">back</a>`)
         res.redirect(`/login`)
     } else {
-        if (req.body.user === 'washie' && req.body.pass === '12345') {
+        if (req.body.user === process.env.SESSION_USER && req.body.pass === process.env.SESSION_PASS) {
             req.session.user = req.body.user;
             res.send(`<h1 style="color:green;">Login successful</h1>
             <div><a href="/secure">proceed to secure page</a>
